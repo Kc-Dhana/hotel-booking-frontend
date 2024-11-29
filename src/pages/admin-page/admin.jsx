@@ -1,14 +1,20 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { CiBookmarkCheck } from "react-icons/ci";
 import { MdOutlineCategory } from "react-icons/md";
-import { RiDoorOpenLine } from "react-icons/ri";
+import { RiDoorOpenLine, RiH1 } from "react-icons/ri";
 import { LuUsers } from "react-icons/lu";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { TbPhoto } from "react-icons/tb";
+import AdminBooking from "../admin/Bookings/adminBookings";
+import AdminCategories from "../admin/Bookings/adminBookings";
+import AdminRooms from "../admin/Rooms/room";
+import AdminUsers from "../admin/Users/users";
+import AdminFeedback from "../admin/Feedback/feedback";
+import AdminGalleryItems from "../admin/GalleryItems/galleryItems";
 
 export default function AdminPage() {
     return (
-        <div className="w-full max-h-[100vh] overflow-hidden flex">
+        <div className="w-full max-h-[100vh] flex">
 
             {/* Sidebar */}
             <div className="w-[20%] bg-blue-400 h-[100vh] flex flex-col">
@@ -69,7 +75,17 @@ export default function AdminPage() {
             </div>
 
             {/* Main Content */}
-            <div className="w-[80%] bg-blue-900"></div>
+            <div className="w-[80%] bg-blue-900 max-h[100vh] overflow-y-scroll ">
+                <Routes path="/*">
+
+                    <Route path="bookings" element={<AdminBooking/>}/>
+                    <Route path="categories" element={<AdminCategories/>}/>
+                    <Route path="rooms" element={<AdminRooms/>}/>
+                    <Route path="users" element={<AdminUsers/>}/>
+                    <Route path="feedback" element={<AdminFeedback/>}/>
+                    <Route path="gallery-items" element={<AdminGalleryItems/>}/>
+                </Routes>
+            </div>
         </div>
     );
 }
