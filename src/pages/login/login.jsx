@@ -13,17 +13,17 @@ function handleLogin() {        //api call karanwa
         password: password,
     })
     .then((res) => {       //req hari nam response eka enwa,print wenwa (token,user details)
-        console.log(res.data)
+        
         localStorage.setItem("token", res.data.token) //local storage eke respones eke token save kara gannwa
 
         const token = localStorage.getItem("token") //local storage eke token eka ganna vidya
-        console.log(token)
+        
 
-        if(res.data.user.type == "admin"){
-            window.location.href = "/admin"  
-        }
-        else{
+        if(res.data.user.type == "customer"){
             window.location.href = "/"  
+        }
+        else if(res.data.user.type == "admin"){
+            window.location.href = "/admin"  
         }
     })
     .catch((error) => {     //waradunothe error print wenna
