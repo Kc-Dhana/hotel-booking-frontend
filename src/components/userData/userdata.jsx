@@ -6,12 +6,13 @@ function UserTag(props){ //propertys use karanwa attribte custome karanna one ni
      const [name, setName] = useState("");
      const [userFound , setUserFound] = useState(false);  //load weddi false  useEfect tiyena function run nam ture(userfound)
 
-      const token = localStorage.getItem("token") //login ekedi local storage sace karapu toekn eka gannwa
+      
 
    //useEffect(function ,[])
 
      useEffect(
         ()=>{       //funtion eke one time run wenna one code danwa
+        const token = localStorage.getItem("token") //login ekedi local storage sace karapu toekn eka gannwa
 
         if(token!=null){ 
         axios.get(import.meta.env.VITE_BACKEND_URL+"/api/users/", //req kara dn inna userwa ganna (get funtion eke req eka yanne backend eke)
@@ -26,8 +27,12 @@ function UserTag(props){ //propertys use karanwa attribte custome karanna one ni
                 setName(res.data.user.firstName + " " + res.data.user.lastName);
                 setUserFound(true);          
             });
+     }else{
+        setName("") //token eka hambune nattam name eka empty wenwa .
      }
-     },[]               //empty array(useEffect hook eke dependenci array)
+     },[userFound]               //sensetive variable danne  methaba (variable eka wenask unoth useEffect run wenwa) //empty array(useEffect hook eke dependenci array)
+                                //meka natuwa auto compent eka refresh wenna na
+                                //json variable sensitive na
     );
      
 
@@ -39,8 +44,8 @@ function UserTag(props){ //propertys use karanwa attribte custome karanna one ni
             <span className="text-white ml-[5px] text-xl">{name}</span>
             <button onClick={()=>{
                 localStorage.removeItem("token")
-                const token = localStorage.getItem("token")
-                console.log(token)
+                setUserFound(false)   //logot click karama userfound false wenna
+               
                 //window.location.href = "/login"
                 
             }}>
