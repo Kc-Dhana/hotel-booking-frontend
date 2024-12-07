@@ -5,6 +5,7 @@ import AdminPage from "./pages/admin-page/admin";
 import TestComponent from "./components/test/test";
 import LoginPage from "./pages/login/login";
 import CategoriesPage from "./pages/client-page/categories";
+import TestComponent2 from "./components/test/test2";
 function App() {
   
   return (
@@ -14,7 +15,9 @@ function App() {
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
+
         <Route path="/test" element={<TestComponent />} />
+        <Route path="/test2" element={<TestComponent2 />} />
         <Route path="/*" element={<HomePage />} />
         
         
