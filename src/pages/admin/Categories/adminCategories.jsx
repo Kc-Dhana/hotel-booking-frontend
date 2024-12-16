@@ -54,7 +54,7 @@ export default function AdminCategories(){
 
     function hadlePlusClick(){
         //go to add Category
-        navigete("add-category") //smothly navigation.parana vidiaya giyoth refrsh wenwa
+        navigete("/admin/add-category") //smothly navigation.parana vidiaya giyoth refrsh wenwa
     }
 
     return(
