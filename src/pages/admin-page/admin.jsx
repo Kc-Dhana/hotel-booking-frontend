@@ -11,6 +11,7 @@ import AdminUsers from "../admin/Users/users";
 import AdminFeedback from "../admin/Feedback/feedback";
 import AdminGalleryItems from "../admin/GalleryItems/galleryItems";
 import AdminCategories from "../admin/Categories/adminCategories";
+import AddCategoryForm from "../admin/addCategoryForm/addCategoryForm";
 
 export default function AdminPage() {
     return (
@@ -80,6 +81,7 @@ export default function AdminPage() {
 
                     <Route path="bookings" element={<AdminBooking/>}/>
                     <Route path="categories" element={<AdminCategories/>}/>
+                    <Route path="add-categories" element={<AddCategoryForm/>}/>
                     <Route path="rooms" element={<AdminRooms/>}/>
                     <Route path="users" element={<AdminUsers/>}/>
                     <Route path="feedback" element={<AdminFeedback/>}/>
