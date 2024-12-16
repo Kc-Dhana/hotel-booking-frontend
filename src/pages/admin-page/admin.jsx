@@ -6,11 +6,11 @@ import { LuUsers } from "react-icons/lu";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { TbPhoto } from "react-icons/tb";
 import AdminBooking from "../admin/Bookings/adminBookings";
-import AdminCategories from "../admin/Bookings/adminBookings";
 import AdminRooms from "../admin/Rooms/room";
 import AdminUsers from "../admin/Users/users";
 import AdminFeedback from "../admin/Feedback/feedback";
 import AdminGalleryItems from "../admin/GalleryItems/galleryItems";
+import AdminCategories from "../admin/Categories/adminCategories";
 
 export default function AdminPage() {
     return (
