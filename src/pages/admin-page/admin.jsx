@@ -81,7 +81,7 @@ export default function AdminPage() {
 
                     <Route path="bookings" element={<AdminBooking/>}/>
                     <Route path="categories" element={<AdminCategories/>}/>
-                    <Route path="add-categories" element={<AddCategoryForm/>}/>
+                    <Route path="add-category" element={<AddCategoryForm/>}/>
                     <Route path="rooms" element={<AdminRooms/>}/>
                     <Route path="users" element={<AdminUsers/>}/>
                     <Route path="feedback" element={<AdminFeedback/>}/>

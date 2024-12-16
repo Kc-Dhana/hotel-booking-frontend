@@ -2,7 +2,8 @@ import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
-import { FaEdit, FaTrash } from "react-icons/fa"
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
 
 export default function AdminCategories(){
     //categories list
@@ -15,7 +16,9 @@ export default function AdminCategories(){
     
     
     const[categories, setCategories] = useState([])
-    const[categoriesIsLoaded, setCategoriesIsLoaded] = useState(false)
+    const[categoriesIsLoaded, setCategoriesIsLoaded] = useState(false);
+
+    const navigete = useNavigate();
 
     useEffect(()=>{
         if(!categoriesIsLoaded){ //category eka load wela nattam(faluse) nam run karanwa 
@@ -49,8 +52,19 @@ export default function AdminCategories(){
             })
     }
 
+    function hadlePlusClick(){
+        //go to add Category
+        navigete("add-category") //smothly navigation.parana vidiaya giyoth refrsh wenwa
+    }
+
     return(
         <div className="w-full p-4">
+            <button className="bg-red-900 w-[60px] h-[60px] rounded-full text-2xl text-center flex justify-center items-center fixed bottom-5 right-5"
+            onClick={()=>{
+                hadlePlusClick()
+            }}>
+                <FaPlus color="white"/>
+            </button>
             <h1 className="text-2xl font-bold mb-4">Categories Table</h1>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-300">
