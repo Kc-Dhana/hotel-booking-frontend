@@ -11,7 +11,7 @@ export default function uploadMedia(file) {
   
     const fileRef = ref(storage, file.name);
   
-    return uploadBytes(fileRef, file)
+    return uploadBytes(fileRef, file)//promise eka return karawna
       
       
   }
