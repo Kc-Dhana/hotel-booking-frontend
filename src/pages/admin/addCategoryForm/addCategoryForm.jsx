@@ -2,6 +2,7 @@ import { useState } from "react";
 import uploadMedia from "../../../utill/mediaUpload";
 import { getDownloadURL } from "firebase/storage";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddCategoryForm() {
     const [name, setName] = useState("");
@@ -10,6 +11,7 @@ export default function AddCategoryForm() {
     const [description, setDescription] = useState("");
     const [image, setImage] = useState(null);
     const [isLoading, setIsLoading] = useState(false); //page eka loadwenwada balanana
+    const navigate = useNavigate();
 
     const token = localStorage.getItem("token");
     if(token == null){
@@ -47,6 +49,7 @@ export default function AddCategoryForm() {
                     (res)=>{
                         console.log(res)
                         setIsLoading(false)//submit eka success uanama loading false wenwa
+                        navigate("/admin/categories");
                         
                     }
                 )
