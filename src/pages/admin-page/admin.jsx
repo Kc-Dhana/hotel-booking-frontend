@@ -14,6 +14,7 @@ import AdminCategories from "../admin/Categories/adminCategories";
 import AddCategoryForm from "../admin/addCategoryForm/addCategoryForm";
 import UpdateCategoryForm from "../admin/UpdateCategoryForm/updateCategory";
 import AddGalleryItemForm from "../admin/AddGalleryForm/addGalleryForm";
+import UpdateGalleryItemForm from "../admin/UpdateGalleryForm/updateGalleryForm";
 
 export default function AdminPage() {
     return (
@@ -90,6 +91,7 @@ export default function AdminPage() {
                     <Route path="feedback" element={<AdminFeedback/>}/>
                     <Route path="gallery-items" element={<AdminGalleryItems/>}/>
                     <Route path="add-gallery-item" element={<AddGalleryItemForm/>} />
+                    <Route path="update-gallery-item" element={<UpdateGalleryItemForm/>}/>
                 </Routes>
             </div>
         </div>
