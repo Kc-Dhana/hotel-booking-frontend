@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function AdminCategories(){
     //categories list
@@ -109,19 +109,22 @@ export default function AdminCategories(){
                                             <span>No image</span>
                                         )}
                                     </td>
-                                    <td className="py-2 px-4 border-b text-center">
-                                        <button
-                                            onClick={() =>{}}
-                                            className="text-blue-500 hover:text-blue-700 mx-2"
+                                    <td className="border border-gray-300 px-4 py-2">
+                                    <div className="flex space-x-2">
+                                        <Link
+                                        className="text-blue-500 hover:text-blue-700 transition"
+                                        to={"/admin/update-category"}
+                                        state={category} //click karana category row eke detail okkoma yawanwa next page ekata state eka vidiyata
                                         >
-                                            <FaEdit />
-                                        </button>
+                                        <FaEdit />
+                                        </Link>
                                         <button
-                                            onClick={() => hadleDelete(category.name)}//click karana row eke catgory name eka pass karala hadeleDelete ekak run karannaw
-                                            className="text-red-500 hover:text-red-700 mx-2"
+                                        onClick={() => handleDelete(category.name)}     //click karana row eke catgory name eka pass karala hadeleDelete ekak run karannaw
+                                        className="text-red-500 hover:text-red-700 transition"
                                         >
-                                            <FaTrash />
+                                        <FaTrash />
                                         </button>
+                                    </div>
                                     </td>
                                 </tr>
                             ))
