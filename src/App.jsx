@@ -7,6 +7,7 @@ import LoginPage from "./pages/login/login";
 import CategoriesPage from "./pages/client-page/categories";
 import TestComponent2 from "./components/test/test2";
 import { Toaster } from "react-hot-toast";
+import { UploadComponent } from "./components/test/test3";
 function App() {
   
   return (
@@ -20,6 +21,7 @@ function App() {
 
         <Route path="/test" element={<TestComponent />} />
         <Route path="/test2" element={<TestComponent2 />} />
+        <Route path="/test3" element={<UploadComponent />} />
         <Route path="/*" element={<HomePage />} />
         
         
