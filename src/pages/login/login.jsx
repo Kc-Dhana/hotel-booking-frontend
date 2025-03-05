@@ -15,6 +15,7 @@ function handleLogin() {        //api call karanwa
     .then((res) => {       //req hari nam response eka enwa,print wenwa (token,user details)
         
         localStorage.setItem("token", res.data.token) //local storage eke respones eke token save kara gannwa
+        localStorage.setItem("userDetails", JSON.stringify(res.data.user)); //userwa details save kara gannwa
 
         const token = localStorage.getItem("token") //local storage eke token eka ganna vidya
         
