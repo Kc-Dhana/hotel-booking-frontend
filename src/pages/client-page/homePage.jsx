@@ -56,7 +56,7 @@ export default function HomePage() {
                 </div>
             </div>
 
-            {/* Welcome Text - Positioned below the carousel */}
+            {/* Welcome Text - Positioned below the carousel*/}
             <div className="text-center mt-8 mb-8">
                 <h1 className="text-4xl font-bold text-blue-900">Welcome to Leonine Villa</h1>
                 <p className="mt-2 text-lg text-gray-500 w-[45%]  mx-auto">
