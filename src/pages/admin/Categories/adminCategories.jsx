@@ -99,9 +99,9 @@ export default function AdminCategories(){
                                         )}
                                     </td>
                                     <td className="py-2 px-4 border-b">
-                                        {category.image ? (
+                                        {category.Image ? (
                                             <img
-                                                src={category.image}
+                                                src={category.Image}
                                                 alt={category.name}
                                                 className="w-16 h-16 object-cover rounded"
                                             />

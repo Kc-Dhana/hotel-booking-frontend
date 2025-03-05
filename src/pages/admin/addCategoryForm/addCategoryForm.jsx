@@ -1,6 +1,7 @@
 import { useState } from "react";
-import uploadMedia from "../../../utill/mediaUpload";
-import { getDownloadURL } from "firebase/storage";
+//import uploadMedia from "../../../utill/mediaUpload";
+//import { getDownloadURL } from "firebase/storage";
+import { upploadMediaToSupabase , supabase } from "../../../utill/mediaUpload";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -34,28 +35,28 @@ export default function AddCategoryForm() {
         console.log("form submitted");
         //uploadMedia(image).then((snapshot) => { //promise eka return wenwa utill eken. .then eka snapshot dala url eka gannwa.utill eke karanne nathuwa methana karawwa. url eka access karanna puluwan nisa
           //  getDownloadURL(snapshot.ref).then((url)=>{    //ulplaod karanna firebase image eke url eka gannwa download karanwa
-                const categoryInfo = {
-                    name: name,
-                    price: price,
-                    features: featuresArray,
-                    description: description,
-                    //image: url
-                }
-                axios.post(import.meta.env.VITE_BACKEND_URL+"/api/category", categoryInfo, { //data
-                    headers: {
-                        Authorization: "Bearer "+token
-                    }
-                }).then(
-                    (res)=>{
-                        console.log(res)
-                        setIsLoading(false)//submit eka success uanama loading false wenwa
-                        navigate("/admin/categories");
-                        
-                    }
-                )
-          //  })
-      
-         // })
+          upploadMediaToSupabase(image).then((res) => {
+            const url = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl;
+            
+            const categoryInfo = {
+                name: name,
+                price: price,
+                features: featuresArray,
+                description: description,
+                Image: url,  // Save the Supabase image URL
+            };
+        
+            axios.post(import.meta.env.VITE_BACKEND_URL + "/api/category", categoryInfo, {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }).then((res) => {
+                console.log(res);
+                setIsLoading(false);
+                navigate("/admin/categories");
+            });
+        });
+        
       
     };
 
