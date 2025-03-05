@@ -36,7 +36,7 @@ export default function AdminCategories(){
      }
     ,[categoriesIsLoaded]) //sensetive variable danne  methaba (variable eka wenask unoth useEffect run wenwa) //empty array(useEffect hook eke dependenci array)
 
-    function hadleDelete(name){ //category eke name eka pass karanwa
+    function handleDelete(name){ //category eke name eka pass karanwa
 
         console.log(name)
         console.log(token)
