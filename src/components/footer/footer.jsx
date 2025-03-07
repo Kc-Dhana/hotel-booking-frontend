@@ -1,3 +1,4 @@
+import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-gray-300 py-8">
@@ -16,10 +17,18 @@ const Footer = () => {
                             📧 info@example.com
                         </p>
                         <div className="flex gap-4 mt-4">
-                            <a href="#" className="text-gray-400 hover:text-white text-2xl">🌐</a>
-                            <a href="#" className="text-gray-400 hover:text-white text-2xl">🎥</a>
-                            <a href="#" className="text-gray-400 hover:text-white text-2xl">📘</a>
-                            <a href="#" className="text-gray-400 hover:text-white text-2xl">🐦</a>
+                        <a href="#" className="text-gray-400 hover:text-white">
+                                <FaFacebookF size={20} />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white">
+                                <FaInstagram size={20} />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white">
+                                <FaXTwitter size={20} />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white">
+                                <FaYoutube size={20} />
+                            </a>
                         </div>
                     </div>
 

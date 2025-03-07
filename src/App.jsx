@@ -8,6 +8,8 @@ import CategoriesPage from "./pages/client-page/categories";
 import TestComponent2 from "./components/test/test2";
 import { Toaster } from "react-hot-toast";
 import { UploadComponent } from "./components/test/test3";
+import RegisterPage from "./pages/registration/registration";
+import OtpVerificationPage from "./pages/otp/otp";
 function App() {
   
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/verify-email" element={<OtpVerificationPage />} />
 
         <Route path="/test" element={<TestComponent />} />
         <Route path="/test2" element={<TestComponent2 />} />
