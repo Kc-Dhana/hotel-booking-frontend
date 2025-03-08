@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { FaUser, FaEnvelope, FaLock, FaWhatsapp, FaPhone } from "react-icons/fa";
+import { upploadMediaToSupabase, supabase } from "../../utill/mediaUpload";
+import { FaUser, FaEnvelope, FaLock, FaWhatsapp, FaPhone, FaCamera } from "react-icons/fa";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,8 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [whatsApp, setWhatsApp] = useState("");
   const [phone, setPhone] = useState("");
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null); // For showing image preview
 
   // Error states
   const [errors, setErrors] = useState({});
@@ -53,26 +56,37 @@ export default function RegisterPage() {
     return formIsValid;
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setPreview(URL.createObjectURL(file)); // Show preview
+  };
+
   // Handle submit
   function handleRegister() {
     if (validate()) {
-      axios
-        .post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          whatsApp: whatsApp,
-          phone: phone,
-        })
-        .then((res) => {
-          console.log(res.data);
-          localStorage.setItem("userEmail", email);
-          window.location.href = "/verify-email"; // Redirect to login page after successful registration
-        })
-        .catch((error) => {
-          console.log(error);
+      let imageUrl = "";
+      if (image) {
+        upploadMediaToSupabase(image).then(() => {
+          imageUrl = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl;
+
+          axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
+            email,
+            password,
+            firstName,
+            lastName,
+            whatsApp,
+            phone,
+            image: imageUrl, // Send image URL
+          }).then((res) => {
+            console.log(res.data);
+            localStorage.setItem("userEmail", email);
+            window.location.href = "/verify-email";
+          }).catch((error) => {
+            console.log(error);
+          });
         });
+      }
     }
   }
 
@@ -81,6 +95,19 @@ export default function RegisterPage() {
       <div className="w-[400px] h-auto backdrop-blur-md rounded-lg p-6 shadow-lg flex flex-col items-center bg-white bg-opacity-80">
 
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Create an Account</h1>
+
+        {/* Image Upload */}
+        <div className="relative mb-3 w-full flex flex-col items-center">
+          {preview ? (
+            <img src={preview} alt="Preview" className="w-20 h-20 rounded-full object-cover mb-2 shadow-md" />
+          ) : (
+            <div className="w-20 h-20 flex items-center justify-center bg-gray-200 rounded-full mb-2 shadow-md">
+              <FaCamera className="text-gray-500 text-2xl" />
+            </div>
+          )}
+          <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" id="fileUpload" />
+          <label htmlFor="fileUpload" className="cursor-pointer bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Choose Image</label>
+        </div>
 
         {/* First Name */}
         <div className="relative mb-3 w-full">
@@ -160,6 +187,7 @@ export default function RegisterPage() {
           {errors.phone && <span className="text-red-500 text-xs">{errors.phone}</span>}
         </div>
 
+        {/* Register Button */}
         <button
           className="w-full h-[45px] bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
           onClick={handleRegister}
