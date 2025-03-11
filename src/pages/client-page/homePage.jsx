@@ -4,10 +4,13 @@ import Slider from "react-slick";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from '../../components/footer/footer';
+import { FaStar } from 'react-icons/fa';
 
 export default function HomePage() {
 
     const [categories, setCategories] = useState([]);
+    const [feedbacks, setFeedbacks] = useState([]);
+
 
     useEffect(() => {
         axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category") // Adjust API URL as needed
@@ -15,9 +18,14 @@ export default function HomePage() {
                 setCategories(response.data.categories);
             })
             .catch(error => console.error("Error fetching categories:", error));
+        axios.get(import.meta.env.VITE_BACKEND_URL + "/api/feedback/")
+            .then(response => {
+                setFeedbacks(response.data.feedbacks);
+            })
+            .catch(error => console.error("Error fetching feedbacks:", error));
     }, []);
 
-
+    // Image Carousel Settings
     const settings = {
         dots: true, // Enable dots
         infinite: true,
@@ -26,6 +34,38 @@ export default function HomePage() {
         slidesToScroll: 1,
         autoplay: true,
     };
+    // Feedback Carousel Settings
+    const feedbackSliderSettings = {
+        dots: false, // Enable dots
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 4, // Show 4 feedback cards at a time
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000, // 3 seconds interval for auto-swipe
+        cssEase: "ease-in-out", // Adding a smooth ease-in-out transition
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    };
+
 
     return (
         <>
@@ -97,6 +137,34 @@ export default function HomePage() {
                     ))}
                 </div>
             </div>
+            {/* User Feedback Section */}
+            <div className="py-10">
+                <h1 className="text-4xl font-bold text-blue-900 text-center mb-8">What Our Guests Say</h1>
+                <Slider {...feedbackSliderSettings}>
+                    {feedbacks.length > 0 ? feedbacks.map((feedback, index) => (
+                        <div key={index} className="bg-white shadow-lg rounded-lg p-5 w-80 text-center">
+                            <div className="w-16 h-16 mx-auto rounded-full overflow-hidden">
+                                {feedback.user?.image ? (
+                                    <img src={feedback.user?.image} alt={`${feedback.user?.firstName} ${feedback.user?.lastName}`} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full bg-gray-300 flex items-center justify-center text-lg font-bold text-white">
+                                        {feedback.user?.firstName?.charAt(0)}{feedback.user?.lastName?.charAt(0)}
+                                    </div>
+                                )}
+                            </div>
+                            <h2 className="text-lg font-bold text-gray-800 mt-4">{feedback.user?.firstName} {feedback.user?.lastName}</h2>
+                            <p className="text-gray-600 text-sm">{feedback.user?.email}</p>
+                            <div className="flex justify-center gap-1 mt-2">
+                                {[...Array(feedback.stars)].map((_, i) => (
+                                    <FaStar key={i} className="text-yellow-500" />
+                                ))}
+                            </div>
+                            <p className="text-gray-700 mt-3">{feedback.description}</p>
+                        </div>
+                    )) : <p className="text-center text-gray-500">No feedback available yet.</p>}
+                </Slider>
+            </div>
+
             <Footer/>
                 
         </>
