@@ -11,6 +11,7 @@ import { UploadComponent } from "./components/test/test3";
 import RegisterPage from "./pages/registration/registration";
 import OtpVerificationPage from "./pages/otp/otp";
 import GalleyPage from "./pages/client-page/galleyPage";
+import AboutPage from "./pages/client-page/aboutPage";
 function App() {
   
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-email" element={<OtpVerificationPage />} />
         <Route path="/gallery" element={<GalleyPage />} />
+        <Route path="/about" element={<AboutPage/>} />
 
         <Route path="/test" element={<TestComponent />} />
         <Route path="/test2" element={<TestComponent2 />} />
