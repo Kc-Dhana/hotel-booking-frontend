@@ -35,7 +35,7 @@ export default function AddGalleryItemForm() {
                 const galleryItemInfo = {
                     name: name,
                     description: description,
-                    Image: url,  // Save the Supabase image URL
+                    image: url,  // Save the Supabase image URL
                 };
                 axios
                     .post(
