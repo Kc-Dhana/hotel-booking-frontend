@@ -1,6 +1,7 @@
 import { useState } from "react";
 import uploadMedia from "../../../utill/mediaUpload";
 import { getDownloadURL } from "firebase/storage";
+import { upploadMediaToSupabase , supabase } from "../../../utill/mediaUpload";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -29,10 +30,12 @@ export default function AddGalleryItemForm() {
         console.log("Form submitted");
         //uploadMedia(image).then((snapshot) => {
            // getDownloadURL(snapshot.ref).then((url) => {
+        upploadMediaToSupabase(image).then((res) => {
+        const url = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl;
                 const galleryItemInfo = {
                     name: name,
                     description: description,
-                    //image: url,
+                    Image: url,  // Save the Supabase image URL
                 };
                 axios
                     .post(
@@ -50,7 +53,7 @@ export default function AddGalleryItemForm() {
                     
                     })
                     
-           // });
+            });
         //});
     };
 
