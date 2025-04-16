@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import { UploadComponent } from "./components/test/test3";
 import RegisterPage from "./pages/registration/registration";
 import OtpVerificationPage from "./pages/otp/otp";
+import GalleyPage from "./pages/client-page/galleyPage";
 function App() {
   
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-email" element={<OtpVerificationPage />} />
+        <Route path="/gallery" element={<GalleyPage />} />
 
         <Route path="/test" element={<TestComponent />} />
         <Route path="/test2" element={<TestComponent2 />} />
