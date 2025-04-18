@@ -14,7 +14,6 @@ export default function AdminRooms() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
-    // Fetch all categories for dropdown
     useEffect(() => {
         axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category")
             .then(res => {
@@ -24,7 +23,6 @@ export default function AdminRooms() {
             });
     }, []);
 
-    // Fetch rooms based on searchRoomId and searchCategory
     useEffect(() => {
         if (!roomsIsLoaded) {
             const params = new URLSearchParams();
@@ -75,7 +73,6 @@ export default function AdminRooms() {
                             setRoomsIsLoaded(false);
                         }}
                     />
-
                     <select
                         className="border px-2 py-1 rounded"
                         value={searchCategory}
@@ -132,7 +129,7 @@ export default function AdminRooms() {
                                 <td className="border border-gray-300 px-4 py-2">
                                     <div className="flex space-x-2">
                                         <Link
-                                            to="/admin/update-room"
+                                            to="/admin/update-rooms"
                                             state={room}
                                             className="text-blue-500 hover:text-blue-700"
                                         >
