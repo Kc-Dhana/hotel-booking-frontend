@@ -21,7 +21,7 @@ export default function UpdateRoomForm() {
     const [notes, setNotes] = useState(location.state.notes);
     const [category, setCategory] = useState(location.state.category);
     const [image, setImage] = useState(null);
-    const [price, setPrice] = useState(location.state.price || "");
+    const [price, setPrice] = useState(Number(location.state.price) || 0);
     const [maxGuests, setMaxGuests] = useState(location.state.maxGuests || "");
     const [available, setAvailable] = useState(location.state.available ?? true);
     const [isLoading, setIsLoading] = useState(false);
@@ -49,8 +49,8 @@ export default function UpdateRoomForm() {
             specialdescription: specialDescription,
             notes,
             category,
-            price: Number(price),
-            maxGuests: Number(maxGuests),
+            price,
+            maxGuests,
             available,
             // Handle image upload later, here we just pass the image URL
         };
@@ -75,7 +75,7 @@ export default function UpdateRoomForm() {
 
         try {
             await axios.put(
-                `${import.meta.env.VITE_BACKEND_URL}/api/rooms/${location.state._id}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/rooms/${location.state.roomId}`,
                 roomData,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -105,8 +105,9 @@ export default function UpdateRoomForm() {
                     <label className="block text-sm font-bold mb-1">Price</label>
                     <input
                         type="number"
+                        step="1"
                         value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(Number(e.target.value))}
                         className="w-full px-3 py-2 border rounded"
                         required
                     />
