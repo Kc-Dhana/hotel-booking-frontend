@@ -21,6 +21,9 @@ export default function UpdateRoomForm() {
     const [notes, setNotes] = useState(location.state.notes);
     const [category, setCategory] = useState(location.state.category);
     const [image, setImage] = useState(null);
+    const [price, setPrice] = useState(location.state.price || "");
+    const [maxGuests, setMaxGuests] = useState(location.state.maxGuests || "");
+    const [available, setAvailable] = useState(location.state.available ?? true);
     const [isLoading, setIsLoading] = useState(false);
     const [categories, setCategories] = useState([]);
 
@@ -46,6 +49,9 @@ export default function UpdateRoomForm() {
             specialdescription: specialDescription,
             notes,
             category,
+            price: Number(price),
+            maxGuests: Number(maxGuests),
+            available,
             // Handle image upload later, here we just pass the image URL
         };
 
@@ -83,8 +89,8 @@ export default function UpdateRoomForm() {
     };
 
     return (
-        <div className="w-full h-[100vh] flex items-center justify-center">
-            <form onSubmit={handleSubmit} className="w-1/2 bg-white p-6 shadow-md rounded">
+        <div className="w-full min-h-[60vh] flex items-center justify-center py-10">
+            <form onSubmit={handleSubmit} className="w-[90%] max-w-md bg-white p-4 shadow-md rounded">
                 <div className="mb-4">
                     <label className="block text-sm font-bold mb-1">Room ID</label>
                     <input
@@ -94,6 +100,43 @@ export default function UpdateRoomForm() {
                         disabled
                     />
                 </div>
+                
+                <div className="mb-4">
+                    <label className="block text-sm font-bold mb-1">Price</label>
+                    <input
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        className="w-full px-3 py-2 border rounded"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-sm font-bold mb-1">Max Guests</label>
+                    <input
+                        type="number"
+                        value={maxGuests}
+                        onChange={(e) => setMaxGuests(e.target.value)}
+                        className="w-full px-3 py-2 border rounded"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                <label className="block text-sm font-bold mb-1">Available</label>
+                <select
+                    value={available}
+                    onChange={(e) => setAvailable(e.target.value === "true")}
+                    className="w-full px-3 py-2 border rounded"
+                    required
+                >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                </div>
+
+
                 <div className="mb-4">
                     <label className="block text-sm font-bold mb-1">Special Description</label>
                     <textarea

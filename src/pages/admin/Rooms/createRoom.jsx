@@ -12,6 +12,7 @@ export default function AddRoomForm() {
     const [photos, setPhotos] = useState([])
     const [specialdescription, setSpecialDescription] = useState("")
     const [notes, setNotes] = useState("")
+    const [price, setPrice] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
     const navigate = useNavigate()
@@ -52,7 +53,8 @@ export default function AddRoomForm() {
             available,
             photos: uploadedUrls,
             specialdescription,
-            notes
+            notes,
+            price: parseFloat(price)
         }
 
         axios.post(import.meta.env.VITE_BACKEND_URL + "/api/rooms", roomInfo, {
@@ -105,6 +107,17 @@ export default function AddRoomForm() {
                         type="number"
                         value={maxGuests}
                         onChange={(e) => setMaxGuests(e.target.value)}
+                        className="w-full px-2 py-1 border rounded text-sm"
+                        required
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="block text-sm mb-1">Price</label>
+                    <input
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                         className="w-full px-2 py-1 border rounded text-sm"
                         required
                     />

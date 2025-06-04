@@ -104,6 +104,7 @@ export default function AdminRooms() {
                             <th className="py-2 px-4 border-b">Room ID</th>
                             <th className="py-2 px-4 border-b">Category</th>
                             <th className="py-2 px-4 border-b">Guests</th>
+                            <th className="py-2 px-4 border-b">Price (LKR)</th>
                             <th className="py-2 px-4 border-b">Available</th>
                             <th className="py-2 px-4 border-b">Photos</th>
                             <th className="py-2 px-4 border-b">Actions</th>
@@ -116,6 +117,7 @@ export default function AdminRooms() {
                                 <td className="py-2 px-4 border-b">{room.roomId}</td>
                                 <td className="py-2 px-4 border-b">{room.category}</td>
                                 <td className="py-2 px-4 border-b">{room.maxGuests}</td>
+                                <td className="py-2 px-4 border-b">{room.price?.toLocaleString() || "N/A"}</td>
                                 <td className="py-2 px-4 border-b">{room.available ? "Yes" : "No"}</td>
                                 <td className="py-2 px-4 border-b">
                                     {room.photos && room.photos.length > 0 ? (
