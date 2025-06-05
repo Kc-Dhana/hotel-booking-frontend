@@ -12,6 +12,7 @@ import RegisterPage from "./pages/registration/registration";
 import OtpVerificationPage from "./pages/otp/otp";
 import GalleyPage from "./pages/client-page/galleyPage";
 import AboutPage from "./pages/client-page/aboutPage";
+import RoomSearchPage from "./pages/client-page/roomSearchPage";
 function App() {
   
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/verify-email" element={<OtpVerificationPage />} />
         <Route path="/gallery" element={<GalleyPage />} />
         <Route path="/about" element={<AboutPage/>} />
+        <Route path="/search" element={<RoomSearchPage/>} />
 
         <Route path="/test" element={<TestComponent />} />
         <Route path="/test2" element={<TestComponent2 />} />
