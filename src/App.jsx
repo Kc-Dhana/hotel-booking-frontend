@@ -13,6 +13,7 @@ import OtpVerificationPage from "./pages/otp/otp";
 import GalleyPage from "./pages/client-page/galleyPage";
 import AboutPage from "./pages/client-page/aboutPage";
 import RoomSearchPage from "./pages/client-page/roomSearchPage";
+import CustomerDashboard from "./pages/client-page/customerDashboard";
 function App() {
   
   return (
@@ -21,6 +22,7 @@ function App() {
       <Routes path="/*">
 
         <Route path="/admin/*" element={<AdminPage />} />
+        <Route path="/customer/*" element={<CustomerDashboard/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -28,6 +30,8 @@ function App() {
         <Route path="/gallery" element={<GalleyPage />} />
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/search" element={<RoomSearchPage/>} />
+
+
 
         <Route path="/test" element={<TestComponent />} />
         <Route path="/test2" element={<TestComponent2 />} />
