@@ -48,11 +48,16 @@ export default function Header() {
                 {user ? (
                     // If logged in, show user details and logout
                     <div className="flex items-center gap-4">
-                        <span className="text-white">{user.firstName} {user.lastName}</span>
-                        <button onClick={handleLogout} className="bg-red-500 px-3 py-1 rounded flex items-center gap-2">
-                            <FaSignOutAlt size={20} /> Logout
-                        </button>
-                    </div>
+                            <Link to="/customer" className="text-white hover:underline">
+                                {user.firstName} {user.lastName}
+                            </Link>
+                            <button
+                                onClick={handleLogout}
+                                className="bg-red-500 px-3 py-1 rounded flex items-center gap-2"
+                            >
+                                <FaSignOutAlt size={20} /> Logout
+                            </button>
+                            </div>
                 ) : (
                     // If not logged in, show Login & Register
                     <div className="flex gap-4">
