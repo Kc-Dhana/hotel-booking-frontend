@@ -3,8 +3,19 @@ import { FaUserCircle, FaHome, FaClipboardList, FaCheckCircle, FaHistory, FaComm
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import AdminBooking from "../admin/Bookings/adminBookings";
+import { useState, useEffect } from "react";
 
 export default function CustomerLayout() {
+
+        const [user, setUser] = useState(null);
+
+        useEffect(() => {
+            const userDetails = localStorage.getItem("userDetails");
+            if (userDetails) {
+                setUser(JSON.parse(userDetails));
+            }
+        }, []);
+        
   return (
     <>
     <Header />
@@ -12,9 +23,13 @@ export default function CustomerLayout() {
       {/* Sidebar */}
       <aside className="w-[20%] bg-white shadow-md p-4">
         <div className="flex flex-col items-center mb-6">
-          <FaUserCircle size={40} className="text-gray-600" />
-          <h2 className="text-lg font-semibold">Janee Doe</h2>
-          <p className="text-sm text-gray-500">customer@email.com</p>
+        <FaUserCircle size={40} className="text-gray-600" />
+        <h2 className="text-lg font-semibold">
+            {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
+        </h2>
+        <p className="text-sm text-gray-500">
+            {user ? user.email : ""}
+        </p>
         </div>
         <nav className="space-y-2">
           <a href="/customer/dashboard" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
