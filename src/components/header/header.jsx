@@ -1,29 +1,21 @@
 import { Link } from "react-router-dom";
-import { FaHome, FaSearch, FaInfoCircle, FaImages, FaSignOutAlt, FaUserPlus } from "react-icons/fa";
+import { FaHome, FaSearch, FaInfoCircle, FaImages, FaUserPlus } from "react-icons/fa";
 import { AiOutlineLogin } from "react-icons/ai";
 import { useState, useEffect } from "react";
+import UserTag from "../userData/userdata"; // adjust the path based on your project structure
 
 export default function Header() {
     const [user, setUser] = useState(null);
 
-    // Get user details from localStorage when component mounts
     useEffect(() => {
-        const userDetails = localStorage.getItem("userDetails"); // Get user details from localStorage
+        const userDetails = localStorage.getItem("userDetails");
         if (userDetails) {
-            setUser(JSON.parse(userDetails)); // Set user state with parsed details
+            setUser(JSON.parse(userDetails));
         }
     }, []);
 
-    // Logout function to clear localStorage and redirect
-    function handleLogout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userDetails");
-        setUser(null); // Reset user state
-        window.location.href = "/login"; // Redirect to login page
-    }
-
     return (
-        <header className="w-full bg-blue-500 flex justify-between items-center p-4 shadow-md">
+        <header className="w-full bg-blue-500 flex justify-between items-center p-3 shadow-md relative">
             {/* Logo */}
             <h1 className="text-white text-2xl font-bold">Leonine Villa</h1>
 
@@ -46,20 +38,8 @@ export default function Header() {
             {/* Authentication Section */}
             <div className="flex items-center gap-4">
                 {user ? (
-                    // If logged in, show user details and logout
-                    <div className="flex items-center gap-4">
-                            <Link to="/customer" className="text-white hover:underline">
-                                {user.firstName} {user.lastName}
-                            </Link>
-                            <button
-                                onClick={handleLogout}
-                                className="bg-red-500 px-3 py-1 rounded flex items-center gap-2"
-                            >
-                                <FaSignOutAlt size={20} /> Logout
-                            </button>
-                            </div>
+                    <UserTag imageLink={user.imageUrl} />
                 ) : (
-                    // If not logged in, show Login & Register
                     <div className="flex gap-4">
                         <Link to="/login" className="text-white flex items-center gap-2">
                             <AiOutlineLogin size={20} /> Login

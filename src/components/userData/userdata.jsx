@@ -1,57 +1,50 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-function UserTag(props){ //propertys use karanwa attribte custome karanna one nisa
+export default function UserTag() {
+  const [userFound, setUserFound] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [imageLink, setImageLink] = useState("");
 
-     const [name, setName] = useState("");
-     const [userFound , setUserFound] = useState(false);  //load weddi false  useEfect tiyena function run nam ture(userfound)
+  useEffect(() => {
+    const userDetails = localStorage.getItem("userDetails");
+    if (userDetails) {
+      const user = JSON.parse(userDetails);
+      setUserFound(true);
+      setName(`${user.firstName} ${user.lastName}`);
+      setEmail(user.email);
+      setImageLink(user.image || "/default-avatar.png"); // fallback image
+    }
+  }, []);
 
-      
+  if (!userFound) return null;
 
-   //useEffect(function ,[])
-
-     useEffect(
-        ()=>{       //funtion eke one time run wenna one code danwa
-        const token = localStorage.getItem("token") //login ekedi local storage sace karapu toekn eka gannwa
-
-        if(token!=null){ 
-        axios.get(import.meta.env.VITE_BACKEND_URL+"/api/users/", //req kara dn inna userwa ganna (get funtion eke req eka yanne backend eke)
-            {                                                     //token eken userdeail ganna vidiya //postman eke karapu de backend karanwa
-                headers: {
-                    Authorization: "Bearer " + token,       //token eke headr eke dala yawana backend ekata dn log wela inne user details ganna liyala
-                    "Content-Type": "application/json"
-                },
-            })
-            .then((res) => {                                 //userwa hambunata passe
-                console.log(res);
-                setName(res.data.user.firstName + " " + res.data.user.lastName);
-                setUserFound(true);          
-            });
-     }else{
-        setName("") //token eka hambune nattam name eka empty wenwa .
-     }
-     },[userFound]               //sensetive variable danne  methaba (variable eka wenask unoth useEffect run wenwa) //empty array(useEffect hook eke dependenci array)
-                                //meka natuwa auto compent eka refresh wenna na
-                                //json variable sensitive na
-    );
-     
-
-    return (
-        <div className="absolute right-0 flex items-center cursor-pointer mr-2">
-            <img
-            className="rounded-full w-[40px] h-[40px] lg:w-[60px] lg:h-[60px]" 
-            src={props.imageLink}/>
-            <span className="text-white ml-[5px] text-xl">{name}</span>
-            <button onClick={()=>{
-                localStorage.removeItem("token")
-                setUserFound(false)   //logot click karama userfound false wenna
-               
-                //window.location.href = "/login"
-                
-            }}>
-                logout
-            </button>
+  return (
+    <div className="flex items-center gap-3 bg-blue-600 px-2 py-1 rounded-lg shadow text-white">
+      <Link to="/customer" className="flex items-center gap-2">
+        <img
+          className="rounded-full w-10 h-10 border border-white object-cover"
+          src={imageLink}
+          alt="user"
+        />
+        <div className="flex flex-col text-sm">
+          <span className="font-semibold">{name}</span>
+          <span className="text-white text-xs">{email}</span>
         </div>
-    )
+      </Link>
+
+      <button
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("userDetails");
+          setUserFound(false);
+          window.location.href = "/login";
+        }}
+        className="bg-red-500 text-white text-sm px-3 py-1 rounded"
+      >
+        Logout
+      </button>
+    </div>
+  );
 }
-export default UserTag;
