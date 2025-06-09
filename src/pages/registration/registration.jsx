@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { upploadMediaToSupabase, supabase } from "../../utill/mediaUpload";
 import { FaUser, FaEnvelope, FaLock, FaWhatsapp, FaPhone, FaCamera } from "react-icons/fa";
+import './regisration.css';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -91,7 +92,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full h-[100vh] bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex justify-center items-center">
+      
+     <div className="w-full h-screen login-background flex justify-center items-center">
       <div className="w-[400px] h-auto backdrop-blur-md rounded-lg p-6 shadow-lg flex flex-col items-center bg-white bg-opacity-80">
 
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Create an Account</h1>
@@ -201,5 +203,6 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+    
   );
 }
