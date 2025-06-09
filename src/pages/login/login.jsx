@@ -85,10 +85,10 @@ function handleLogin() {        //api call karanwa
         <div className="bg-white border border-gray-300 rounded p-4 text-sm">
           <p className="font-semibold mb-2">Demo Logins</p>
           <div className="flex justify-between items-center mb-2">
-            <span>Email: admin1@email.com<br />Password: 123</span>
+            <span>Email: admin1@gmail.com<br />Password: 123</span>
             <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs"
               onClick={() => {
-                setEmail("admin1@email.com");
+                setEmail("admin1@gmail.com");
                 setPassword("123");
               }}>Load</button>
           </div>
