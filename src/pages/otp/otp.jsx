@@ -43,7 +43,7 @@ export default function OtpVerificationPage() {
   };
 
   return (
-    <div className="w-full h-[100vh] bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex justify-center items-center">
+    <div className="w-full h-screen login-background flex justify-center items-center">
       <div className="w-[400px] h-auto backdrop-blur-md rounded-lg p-6 shadow-lg flex flex-col items-center bg-white bg-opacity-80">
 
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">OTP Verification</h1>

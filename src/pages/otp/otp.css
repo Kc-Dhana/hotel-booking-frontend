@@ -1,0 +1,6 @@
+.login-background {
+    background-image: url("/login.jpg"); /* make sure it's correctly placed in `public/` */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
