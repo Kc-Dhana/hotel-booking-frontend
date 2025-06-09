@@ -33,39 +33,88 @@ function handleLogin() {        //api call karanwa
 }
 
     return (
-        <div className="w-full h-[100vh] pic-bg flex justify-center items-center">
-            <div className="w-[400px] h-[400px] backdrop-blur-md
-            rounded-lg flex flex-col items-center relative justify-center">
+  <div className="w-full h-screen pic-bg flex justify-center items-center">
+    <div className="bg-white/90 rounded-xl shadow-xl flex w-[90%] max-w-4xl overflow-hidden">
 
-                <h1 className="text-3xl p-[15px] text-white text-center absolute top-[40px]">
-                    Login
-                </h1>
+      {/* Left - illustration */}
+      <div className="w-1/2 bg-white flex justify-center items-center p-6">
+        <img src="/login2.png" alt="Login illustration" className="w-full h-full object-contain" />
+      </div>
 
-                <input type="text" placeholder="Enter your email" className="w-[80%] h-[40px]
-                bg-[#00000000] border-[2px] text-white placeholder:text-white
-                px-[5px] mb-[20px]" defaultValue={email}
-                onChange={
-                    (e) => {
-                        setEmail(e.target.value); //value eke e eke taget eke athule tiyenne.
+      {/* Right - login form */}
+      <div className="w-1/2 flex flex-col justify-center px-6 py-8 relative text-gray-800">
+
+        <h1 className="text-3xl font-semibold mb-6 text-center">Login</h1>
+        <p className="text-sm text-center mb-6 text-gray-600">
+          To keep connected with us please login with your personal information
+        </p>
+
+        <input
+          type="text"
+          placeholder="yourmail@example.com"
+          className="w-full h-[40px] border border-gray-300 rounded px-3 mb-4 text-gray-700"
+          defaultValue={email}
+          onChange={(e) => setEmail(e.target.value)}//value eke e eke taget eke athule tiyenne.
                                                 //eka setemail eka add wenwa value eka change wena hamaparama
-                    }
-                }/>
+        />
 
-                <input type="password" placeholder="Enter your password" className="w-[80%] h-[40px]
-                bg-[#00000000] border-[2px] text-white placeholder:text-white
-                px-[5px] mb-[10px]" defaultValue={password}
-                onChange={
-                    (e) => {
-                        setPassword(e.target.value); 
-                    }
-                }/>
+        <input
+          type="password"
+          placeholder="**********"
+          className="w-full h-[40px] border border-gray-300 rounded px-3 mb-6 text-gray-700"
+          defaultValue={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-                <button className="w-[80%] h-[40px] bg-red-500  text-white
-                hover:bg-white hover:text-black absolute bottom-[40px]"
-                onClick={handleLogin}>Login</button>
-
-            </div>
-            
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+          <button
+            className="w-full sm:w-[48%] h-[40px] bg-blue-600 text-white rounded hover:bg-blue-700 transition-all"
+            onClick={handleLogin}
+          >
+            Login Now
+          </button>
+          <button
+            className="w-full sm:w-[48%] h-[40px] bg-gray-200 text-black rounded hover:bg-gray-300 transition-all"
+            onClick={() => window.location.href = "/register"} // optional
+          >
+            Create Account
+          </button>
         </div>
-    )
+
+        {/* Demo logins */}
+        <div className="bg-white border border-gray-300 rounded p-4 text-sm">
+          <p className="font-semibold mb-2">Demo Logins</p>
+          <div className="flex justify-between items-center mb-2">
+            <span>Email: admin1@email.com<br />Password: 123</span>
+            <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs"
+              onClick={() => {
+                setEmail("admin1@email.com");
+                setPassword("123");
+              }}>Load</button>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Email: yashodaperera99@gmail.com<br />Password: 123</span>
+            <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs"
+              onClick={() => {
+                setEmail("yashodaperera99@gmail.com");
+                setPassword("123456");
+              }}>Load</button>
+          </div>
+        </div>
+
+        {/* Back to Home */}
+        <div className="mt-4 text-center">
+          <button
+            className="text-sm text-blue-600 hover:underline"
+            onClick={() => window.location.href = "/"}
+          >
+            ← Back to Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+
 }
