@@ -8,27 +8,27 @@ const Footer = () => {
                     <div>
                         <h2 className="text-white text-xl font-semibold mb-4">Get In Touch</h2>
                         <p className="flex items-center gap-2">
-                            📍 123 Street, Hanguranketha, Kandy
+                            📍 436 Galle Road, Unawatuna, Galle 80600, Sri Lanka
                         </p>
                         <p className="flex items-center gap-2">
-                            📞 +012 345 67890
+                            📞 +011 222 67890
                         </p>
                         <p className="flex items-center gap-2">
                             📧 info@example.com
                         </p>
                         <div className="flex gap-4 mt-4">
-                        <a href="#" className="text-gray-400 hover:text-white">
+                          <span className="text-gray-400 hover:text-white cursor-pointer">
                                 <FaFacebookF size={20} />
-                            </a>
-                            <a href="#" className="text-gray-400 hover:text-white">
+                            </span>
+                            <span className="text-gray-400 hover:text-white cursor-pointer">
                                 <FaInstagram size={20} />
-                            </a>
-                            <a href="#" className="text-gray-400 hover:text-white">
+                            </span>
+                            <span className="text-gray-400 hover:text-white cursor-pointer">
                                 <FaXTwitter size={20} />
-                            </a>
-                            <a href="#" className="text-gray-400 hover:text-white">
+                            </span>
+                            <span className="text-gray-400 hover:text-white cursor-pointer">
                                 <FaYoutube size={20} />
-                            </a>
+                            </span>
                         </div>
                     </div>
 
@@ -36,11 +36,12 @@ const Footer = () => {
                     <div>
                         <h2 className="text-white text-xl font-semibold mb-4">Quick Links</h2>
                         <ul className="space-y-2">
-                            <li><a href="#" className="hover:text-white">About Us</a></li>
-                            <li><a href="#" className="hover:text-white">Contact Us</a></li>
-                            <li><a href="#" className="hover:text-white">Rooms</a></li>
-                            <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
-                            <li><a href="#" className="hover:text-white">Terms & Conditions</a></li>
+                            <li><span className="hover:text-white cursor-pointer">About Us</span></li>
+                            <li><span className="hover:text-white cursor-pointer">Contact Us</span></li>
+                            <li><span className="hover:text-white cursor-pointer">Rooms</span></li>
+                            <li><span className="hover:text-white cursor-pointer">Privacy Policy</span></li>
+                            <li><span className="hover:text-white cursor-pointer">Terms & Conditions</span></li>
+
                         </ul>
                     </div>
 
@@ -48,19 +49,19 @@ const Footer = () => {
                     <div>
                         <h2 className="text-white text-xl font-semibold mb-4">About Us</h2>
                         <p className="text-gray-400 text-sm">
-                            At Hotel Name, we provide world-class comfort and luxury with exceptional hospitality. Enjoy breathtaking views, modern amenities, and a memorable stay.
+                            At Leonine Villa, we provide world-class comfort and luxury with exceptional hospitality. Enjoy breathtaking views, modern amenities, and a memorable stay.
                         </p>
                     </div>
                 </div>
 
                 {/* Copyright */}
                 <div className="border-t border-gray-700 mt-6 pt-4 flex justify-between text-sm">
-                    <p>© {new Date().getFullYear()} Hotel Name. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Leonine Villa. All rights reserved.</p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-white">Home</a>
-                        <a href="#" className="hover:text-white">Cookies</a>
-                        <a href="#" className="hover:text-white">Help</a>
-                        <a href="#" className="hover:text-white">FAQs</a>
+                            <span className="hover:text-white cursor-pointer">Home</span>
+                            <span className="hover:text-white cursor-pointer">Cookies</span>
+                            <span className="hover:text-white cursor-pointer">Help</span>
+                            <span className="hover:text-white cursor-pointer">FAQs</span>
                     </div>
                 </div>
             </div>
