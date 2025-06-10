@@ -17,6 +17,7 @@ import AddGalleryItemForm from "../admin/AddGalleryForm/addGalleryForm";
 import UpdateGalleryItemForm from "../admin/UpdateGalleryForm/updateGalleryForm";
 import AddRoomForm from "../admin/Rooms/createRoom";
 import UpdateRoomForm from "../admin/Rooms/updateRoom";
+import UpdateBookingForm from "../admin/Bookings/updateBooking";
 
 export default function AdminPage() {
     return (
@@ -96,6 +97,7 @@ export default function AdminPage() {
                     <Route path="gallery-items" element={<AdminGalleryItems/>}/>
                     <Route path="add-gallery-item" element={<AddGalleryItemForm/>} />
                     <Route path="update-gallery-item" element={<UpdateGalleryItemForm/>}/>
+                    <Route path="update-booking" element={<UpdateBookingForm/>}/>
                 </Routes>
             </div>
         </div>
