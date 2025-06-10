@@ -106,6 +106,7 @@ export default function AdminUsers() {
 
   return (
     <div className="w-full p-6 bg-gray-50">
+      <h1 className="text-2xl font-bold mb-4">Users Table</h1>
       <div className="overflow-x-auto">
         <table className="w-full table-auto border-collapse border border-gray-300 shadow-sm bg-white rounded-lg">
           <thead className="bg-gray-100 text-gray-700">
