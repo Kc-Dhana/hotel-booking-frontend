@@ -28,6 +28,7 @@ export default function CustomerLayout() {
         setUser(null); // Reset user state
         window.location.href = "/login"; // Redirect to login page
     }
+     const defaultImage = "https://www.w3schools.com/howto/img_avatar.png"; 
         
   return (
     <>
@@ -36,7 +37,11 @@ export default function CustomerLayout() {
       {/* Sidebar */}
       <aside className="w-[20%] bg-white shadow-md p-4">
         <div className="flex flex-col items-center mb-6">
-        <FaUserCircle size={40} className="text-gray-600" />
+        <img
+            src={user?.image || defaultImage}
+            alt="Profile"
+            className="w-12 h-12 rounded-full object-cover border border-white"
+        />
         <h2 className="text-lg font-semibold">
             {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
         </h2>
