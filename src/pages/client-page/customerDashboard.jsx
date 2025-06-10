@@ -35,48 +35,49 @@ export default function CustomerLayout() {
     <Header />
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-[20%] bg-white shadow-md p-4">
-        <div className="flex flex-col items-center mb-6">
-        <img
-            src={user?.image || defaultImage}
-            alt="Profile"
-            className="w-12 h-12 rounded-full object-cover border border-white"
-        />
-        <h2 className="text-lg font-semibold">
-            {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
-        </h2>
-        <p className="text-sm text-gray-500">
-            {user ? user.email : ""}
-        </p>
-        </div>
-        <nav className="space-y-2">
-          <a href="/customer/dashboard" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-            <FaHome /> Dashboard
-          </a>
-          <a href="/customer/bookings" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-            <FaClipboardList /> Booking Requests
-          </a>
-          <a href="/customer/rejected" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-            <FaTimes /> Rejected Requests
-          </a>
-          <a href="/customer/accepted" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-            <FaCheckCircle /> Accepted Bookings
-          </a>
-          <a href="/customer/completed" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-            <FaHistory /> Completed Bookings
-          </a>
-          <a href="/customer/feedback" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
-            <FaCommentDots /> Feedbacks
-          </a>
-          <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 text-red-500 bg-transparent border-none cursor-pointer"
-              type="button"
-            >
-              <FaSignOutAlt /> Logout
-            </button>
-        </nav>
-      </aside>
+      <aside className="w-[20%] bg-white shadow-lg p-6 rounded-r-2xl">
+  <div className="flex flex-col items-center mb-8">
+    <img
+      src={user?.image || defaultImage}
+      alt="Profile"
+      className="w-16 h-16 rounded-full object-cover border-2 border-blue-500"
+    />
+    <h2 className="text-xl font-semibold mt-2">
+      {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
+    </h2>
+    <p className="text-sm text-gray-500">
+      {user ? user.email : ""}
+    </p>
+  </div>
+  <nav className="flex flex-col gap-4">
+    <a href="/customer/dashboard" className="flex items-center gap-3 p-3 rounded-xl text-gray-700 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 shadow-sm transition-all">
+      <FaHome /> <span className="text-base font-medium">Dashboard</span>
+    </a>
+    <a href="/customer/bookings" className="flex items-center gap-3 p-3 rounded-xl text-gray-700 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 shadow-sm transition-all">
+      <FaClipboardList /> <span className="text-base font-medium">Booking Requests</span>
+    </a>
+    <a href="/customer/rejected" className="flex items-center gap-3 p-3 rounded-xl text-gray-700 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 shadow-sm transition-all">
+      <FaTimes /> <span className="text-base font-medium">Rejected Requests</span>
+    </a>
+    <a href="/customer/accepted" className="flex items-center gap-3 p-3 rounded-xl text-gray-700 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 shadow-sm transition-all">
+      <FaCheckCircle /> <span className="text-base font-medium">Accepted Bookings</span>
+    </a>
+    <a href="/customer/completed" className="flex items-center gap-3 p-3 rounded-xl text-gray-700 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 shadow-sm transition-all">
+      <FaHistory /> <span className="text-base font-medium">Completed Bookings</span>
+    </a>
+    <a href="/customer/feedback" className="flex items-center gap-3 p-3 rounded-xl text-gray-700 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 shadow-sm transition-all">
+      <FaCommentDots /> <span className="text-base font-medium">Feedbacks</span>
+    </a>
+    <button
+      onClick={handleLogout}
+      className="flex items-center gap-3 p-3 rounded-xl text-red-600 bg-red-50 hover:bg-red-100 shadow-sm transition-all"
+      type="button"
+    >
+      <FaSignOutAlt /> <span className="text-base font-medium">Logout</span>
+    </button>
+  </nav>
+</aside>
+
 
       {/* Main Content */}
             <div className="w-[80%] bg-gray-100 max-h[100vh] overflow-y-scroll ">
