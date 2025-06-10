@@ -5,8 +5,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from '../../components/footer/footer';
 import { FaStar } from 'react-icons/fa';
+import { toast } from 'react-hot-toast'; // if you use toast
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
+    const navigate = useNavigate(); // Add this inside component
+
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     const [categories, setCategories] = useState([]);
     const [feedbacks, setFeedbacks] = useState([]);
@@ -24,6 +31,44 @@ export default function HomePage() {
             })
             .catch(error => console.error("Error fetching feedbacks:", error));
     }, []);
+
+    function handleBookingClick() {
+    const token = localStorage.getItem('token'); // assuming token is stored
+
+    if (!startDate || !endDate || !selectedCategory) {
+        return toast.error("Please select dates and category");
+    }
+
+    if (!token) {
+        return toast.error("You need to log in to book a room");
+    }
+
+    const confirmed = window.confirm("Do you want to place this booking?");
+    if (!confirmed) return;
+
+    axios.post(import.meta.env.VITE_BACKEND_URL + "/api/bookings/create-by-category", {
+        start: startDate,
+        end: endDate,
+        category: selectedCategory,
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(res => {
+        if (res.data.message === "No rooms available") {
+            toast.error("No rooms available for selected dates");
+        } else {
+            toast.success("Booking placed successfully");
+        }
+    }).catch(err => {
+        console.error(err);
+        toast.error("Something went wrong");
+    });
+}
+
+
+
+
 
     // Image Carousel Settings
     const settings = {
@@ -89,24 +134,33 @@ export default function HomePage() {
                     <div className="flex justify-between items-center">
                         <input
                             type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
                             className="border border-gray-300 p-2 rounded-md w-[30%] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <input
                             type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
                             className="border border-gray-300 p-2 rounded-md w-[30%] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <select
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
                             className="border border-gray-300 p-2 rounded-md w-[30%] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option>Luxury</option>
-                            <option>Normal</option>
-                            <option>Low</option>
+                            <option value="">Select Category</option>
+                            {categories.map((cat) => (
+                                <option key={cat.name} value={cat.name}>{cat.name}</option>
+                            ))}
                         </select>
                         <button
+                            onClick={handleBookingClick}
                             className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             Book Now
                         </button>
+
                     </div>
                 </div>
             </div>

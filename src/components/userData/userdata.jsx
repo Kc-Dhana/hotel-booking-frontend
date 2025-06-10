@@ -34,7 +34,7 @@ export default function UserTag() {
         </div>
       </Link>
 
-      <button
+      {/* <button
         onClick={() => {
           localStorage.removeItem("token");
           localStorage.removeItem("userDetails");
@@ -44,7 +44,7 @@ export default function UserTag() {
         className="bg-red-500 text-white text-sm px-3 py-1 rounded"
       >
         Logout
-      </button>
+      </button> */}
     </div>
   );
 }
