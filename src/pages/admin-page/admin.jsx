@@ -1,10 +1,13 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { CiBookmarkCheck } from "react-icons/ci";
 import { MdOutlineCategory } from "react-icons/md";
-import { RiDoorOpenLine, RiH1 } from "react-icons/ri";
+import { RiDoorOpenLine } from "react-icons/ri";
 import { LuUsers } from "react-icons/lu";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { TbPhoto } from "react-icons/tb";
+import { FiLogOut } from "react-icons/fi";
+import { useEffect, useState } from "react";
+
 import AdminBooking from "../admin/Bookings/adminBookings";
 import AdminRooms from "../admin/Rooms/room";
 import AdminUsers from "../admin/Users/users";
@@ -20,85 +23,117 @@ import UpdateRoomForm from "../admin/Rooms/updateRoom";
 import UpdateBookingForm from "../admin/Bookings/updateBooking";
 
 export default function AdminPage() {
+    const navigate = useNavigate();
+    const [admin, setAdmin] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("userDetails");
+        if (storedUser) {
+            setAdmin(JSON.parse(storedUser));
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userDetails");
+        navigate("/login");
+    };
+
+    const defaultImage = "https://www.w3schools.com/howto/img_avatar.png"; // fallback image
+
     return (
-        <div className="w-full max-h-[100vh] flex">
+        <div className="w-full h-screen flex font-sans">
 
             {/* Sidebar */}
-            <div className="w-[20%] bg-blue-400 h-[100vh] flex flex-col">
+            <div className="w-[20%] bg-blue-500 h-full flex flex-col justify-between shadow-lg">
+                <div className="flex flex-col">
 
-                {/* Bookings */}
-                <Link
-                    to="/admin/bookings"
-                    className="text-white text-[20px] hover:font-bold flex items-center px-4 py-2 gap-3"
-                >
-                    <CiBookmarkCheck size={24} />
-                    Bookings
-                </Link>
+                    {/* Brand name */}
+                    <h2 className="text-white text-4xl font-bold px-4 py-5 border-b border-white/20">
+                        Leonine Villa
+                    </h2>
 
-                {/* Categories */}
-                <Link
-                    to="/admin/categories"
-                    className="text-white text-[20px] hover:font-bold flex items-center px-4 py-2 gap-3"
-                >
-                    <MdOutlineCategory size={24} />
-                    Categories
-                </Link>
+                    {/* Nav links */}
+                    <Link to="/admin/bookings" className="text-white text-[18px] hover:bg-blue-600 flex items-center px-4 py-3 gap-3">
+                        <CiBookmarkCheck size={22} />
+                        Bookings
+                    </Link>
+                    <Link to="/admin/categories" className="text-white text-[18px] hover:bg-blue-600 flex items-center px-4 py-3 gap-3">
+                        <MdOutlineCategory size={22} />
+                        Categories
+                    </Link>
+                    <Link to="/admin/rooms" className="text-white text-[18px] hover:bg-blue-600 flex items-center px-4 py-3 gap-3">
+                        <RiDoorOpenLine size={22} />
+                        Rooms
+                    </Link>
+                    <Link to="/admin/users" className="text-white text-[18px] hover:bg-blue-600 flex items-center px-4 py-3 gap-3">
+                        <LuUsers size={22} />
+                        Users
+                    </Link>
+                    <Link to="/admin/feedback" className="text-white text-[18px] hover:bg-blue-600 flex items-center px-4 py-3 gap-3">
+                        <BiMessageSquareDetail size={22} />
+                        Feedback
+                    </Link>
+                    <Link to="/admin/gallery-items" className="text-white text-[18px] hover:bg-blue-600 flex items-center px-4 py-3 gap-3">
+                        <TbPhoto size={22} />
+                        Gallery Items
+                    </Link>
+                </div>
 
-                {/* Rooms */}
-                <Link
-                    to="/admin/rooms"
-                    className="text-white text-[20px] hover:font-bold flex items-center px-4 py-2 gap-3"
+                {/* Logout Button */}
+                <button
+                    onClick={handleLogout}
+                    className="text-white text-[18px] hover:bg-red-600 flex items-center justify-start px-4 py-3 gap-3 w-full border-t border-white/20"
                 >
-                    <RiDoorOpenLine  size={24} />
-                    Rooms
-                </Link>
-
-                {/* Users */}
-                <Link
-                    to="/admin/users"
-                    className="text-white text-[20px] hover:font-bold flex items-center px-4 py-2 gap-3"
-                >
-                    <LuUsers size={24} />
-                    Users
-                </Link>
-
-                {/* Feedback */}
-                <Link
-                    to="/admin/feedback"
-                    className="text-white text-[20px] hover:font-bold flex items-center px-4 py-2 gap-3"
-                >
-                    <BiMessageSquareDetail size={24} />
-                    Feedback
-                </Link>
-
-                {/* Gallery Items */}
-                <Link
-                    to="/admin/gallery-items"
-                    className="text-white text-[20px] hover:font-bold flex items-center px-4 py-2 gap-3"
-                >
-                    <TbPhoto size={24} />
-                    Gallery Items
-                </Link>
+                    <FiLogOut size={22} />
+                    Logout
+                </button>
             </div>
 
             {/* Main Content */}
-            <div className="w-[80%] bg-blue-900 max-h[100vh] overflow-y-scroll ">
-                <Routes path="/*">
+            <div className="w-[80%] bg-blue-50 h-full overflow-y-auto flex flex-col">
 
-                    <Route path="bookings" element={<AdminBooking/>}/>
-                    <Route path="categories" element={<AdminCategories/>}/>
-                    <Route path="add-category" element={<AddCategoryForm/>}/>
-                    <Route path="update-category" element={<UpdateCategoryForm/>}/>
-                    <Route path="rooms" element={<AdminRooms/>}/>
-                    <Route path="add-rooms" element={<AddRoomForm/>}/>
-                    <Route path="update-rooms" element={<UpdateRoomForm/>}/>
-                    <Route path="users" element={<AdminUsers/>}/>
-                    <Route path="feedback" element={<AdminFeedback/>}/>
-                    <Route path="gallery-items" element={<AdminGalleryItems/>}/>
-                    <Route path="add-gallery-item" element={<AddGalleryItemForm/>} />
-                    <Route path="update-gallery-item" element={<UpdateGalleryItemForm/>}/>
-                    <Route path="update-booking" element={<UpdateBookingForm/>}/>
-                </Routes>
+             {/* Topbar */}
+                <div className="bg-gray-800 shadow-md p-4 flex items-center justify-between border-b border-gray-700 text-white">
+                    {/* Left Side - Welcome Text */}
+                    <h2 className="text-xl font-semibold">
+                        Welcome to Admin Dashboard
+                    </h2>
+
+                    {/* Right Side - Admin Info */}
+                    <div className="flex items-center gap-4">
+                        <img
+                            src={admin?.image || defaultImage}
+                            alt="Profile"
+                            className="w-12 h-12 rounded-full object-cover border border-white"
+                        />
+                        <div>
+                            <h2 className="text-lg font-semibold">
+                                {admin?.firstName} {admin?.lastName}
+                            </h2>
+                            <p className="text-sm text-gray-300">{admin?.email}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Page Content */}
+                <div className="p-4">
+                    <Routes path="/*">
+                        <Route path="bookings" element={<AdminBooking />} />
+                        <Route path="categories" element={<AdminCategories />} />
+                        <Route path="add-category" element={<AddCategoryForm />} />
+                        <Route path="update-category" element={<UpdateCategoryForm />} />
+                        <Route path="rooms" element={<AdminRooms />} />
+                        <Route path="add-rooms" element={<AddRoomForm />} />
+                        <Route path="update-rooms" element={<UpdateRoomForm />} />
+                        <Route path="users" element={<AdminUsers />} />
+                        <Route path="feedback" element={<AdminFeedback />} />
+                        <Route path="gallery-items" element={<AdminGalleryItems />} />
+                        <Route path="add-gallery-item" element={<AddGalleryItemForm />} />
+                        <Route path="update-gallery-item" element={<UpdateGalleryItemForm />} />
+                        <Route path="update-booking" element={<UpdateBookingForm />} />
+                    </Routes>
+                </div>
             </div>
         </div>
     );
