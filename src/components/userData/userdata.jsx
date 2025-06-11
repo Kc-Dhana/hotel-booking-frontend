@@ -14,7 +14,7 @@ export default function UserTag() {
       setUserFound(true);
       setName(`${user.firstName} ${user.lastName}`);
       setEmail(user.email);
-      setImageLink(user.image || "/default-avatar.png"); // fallback image
+      setImageLink(user.image || "https://www.w3schools.com/howto/img_avatar.png"); // fallback image
     }
   }, []);
 
