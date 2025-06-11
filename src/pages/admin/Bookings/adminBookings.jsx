@@ -5,18 +5,40 @@ import { Link, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 
 export default function AdminBooking() {
-  const token = localStorage.getItem("token")
+  
   const navigate = useNavigate()
-
-  if (!token) {
-    window.location.href = "/login"
-  }
-
   const [bookings, setBookings] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [selectedBooking, setSelectedBooking] = useState(null)
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isChecking, setIsChecking] = useState(true); // 👈 prevents early render
+
+
+
 
   useEffect(() => {
+
+      const token = localStorage.getItem("token")
+      //const userDetails = localStorage.getItem("userDetails");
+      const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+        // Step 1: Check if token is missing
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      // Step 2: Check if user is not an admin
+      if (!userDetails || userDetails.type !== "admin") {
+        navigate("/");
+        return;
+      }
+      setIsAuthorized(true); // ✅ Only allow rendering when confirmed admin
+
+      setIsAuthorized(true);
+      setIsChecking(false);
+
+
     if (!isLoaded) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/api/bookings`)
@@ -29,7 +51,10 @@ export default function AdminBooking() {
           console.log(err)
         })
     }
-  }, [isLoaded])
+  }, [isLoaded, navigate])
+
+      if (isChecking) return null; // ⛔ block render until auth check is done
+      if (!isAuthorized) return null;
 
   // Delete handler
   const handleDelete = (id) => {

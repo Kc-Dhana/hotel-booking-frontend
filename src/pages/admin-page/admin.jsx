@@ -25,13 +25,26 @@ import UpdateBookingForm from "../admin/Bookings/updateBooking";
 export default function AdminPage() {
     const navigate = useNavigate();
     const [admin, setAdmin] = useState(null);
+    const [isChecking, setIsChecking] = useState(true); // <-- NEW
+
+   
 
     useEffect(() => {
         const storedUser = localStorage.getItem("userDetails");
         if (storedUser) {
-            setAdmin(JSON.parse(storedUser));
+            const parsedUser = JSON.parse(storedUser);
+            if (parsedUser.type !== "admin") {
+                navigate("/"); // Redirect non-admins
+            } else {
+                setAdmin(parsedUser);
+                setIsChecking(false); // ✅ Check done
+            }
+        } else {
+            navigate("/login"); // Redirect if not logged in
         }
-    }, []);
+    }, [navigate]);
+
+    if (isChecking) return null; // ⛔ Prevent flash while checking auth
 
     const handleLogout = () => {
         localStorage.removeItem("token");
