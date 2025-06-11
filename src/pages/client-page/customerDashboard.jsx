@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaHome, FaClipboardList, FaCheckCircle, FaHistory, FaCommentDots, FaEdit, FaSignOutAlt, FaTimes } from "react-icons/fa";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
@@ -14,13 +14,25 @@ import CreateFeedback from "../customerDashboardPages/createFeedback";
 export default function CustomerLayout() {
 
         const [user, setUser] = useState(null);
+        const [isChecking, setIsChecking] = useState(true);
+        const navigate = useNavigate();
 
         useEffect(() => {
-            const userDetails = localStorage.getItem("userDetails");
-            if (userDetails) {
-                setUser(JSON.parse(userDetails));
+          const userDetails = localStorage.getItem("userDetails");
+          if (userDetails) {
+            const parsedUser = JSON.parse(userDetails);
+            if (parsedUser.type !== "customer") {
+              // If not customer, redirect to home or login
+              navigate("/admin/");
+            } else {
+              setUser(parsedUser);
+              setIsChecking(false);
             }
-        }, []);
+          } else {
+            // Not logged in, redirect to login
+            navigate("/login");
+          }
+        }, [navigate]);
 
          function handleLogout() {
         localStorage.removeItem("token");
@@ -29,6 +41,8 @@ export default function CustomerLayout() {
         window.location.href = "/login"; // Redirect to login page
     }
      const defaultImage = "https://www.w3schools.com/howto/img_avatar.png"; 
+
+    if (isChecking) return null; // Prevent flicker until auth check is done
         
   return (
     <>
