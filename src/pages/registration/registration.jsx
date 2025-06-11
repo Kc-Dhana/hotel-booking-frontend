@@ -64,32 +64,69 @@ export default function RegisterPage() {
   };
 
   // Handle submit
-  function handleRegister() {
-    if (validate()) {
-      let imageUrl = "";
-      if (image) {
-        upploadMediaToSupabase(image).then(() => {
-          imageUrl = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl;
+  // function handleRegister() {
+  //   if (validate()) {
+  //     let imageUrl = "";
+  //     if (image) {
+  //       upploadMediaToSupabase(image).then(() => {
+  //         imageUrl = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl;
 
-          axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
-            email,
-            password,
-            firstName,
-            lastName,
-            whatsApp,
-            phone,
-            image: imageUrl, // Send image URL
-          }).then((res) => {
-            console.log(res.data);
-            localStorage.setItem("userEmail", email);
-            window.location.href = "/verify-email";
+  //         axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
+  //           email,
+  //           password,
+  //           firstName,
+  //           lastName,
+  //           whatsApp,
+  //           phone,
+  //           image: imageUrl, // Send image URL
+  //         }).then((res) => {
+  //           console.log(res.data);
+  //           localStorage.setItem("userEmail", email);
+  //           window.location.href = "/verify-email";
+  //         }).catch((error) => {
+  //           console.log(error);
+  //         });
+  //       });
+  //     }
+  //   }
+  // }
+        function handleRegister() {
+        if (!validate()) return;
+
+        // If image is provided, upload and then submit
+        if (image) {
+          upploadMediaToSupabase(image).then(() => {
+            const imageUrl = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl;
+
+            submitForm(imageUrl);
           }).catch((error) => {
-            console.log(error);
+            console.error("Image upload failed:", error);
+            // Optionally still proceed without image
+            submitForm(""); 
           });
+        } else {
+          // If no image, just submit the form with empty image string
+          submitForm("");
+        }
+      }
+      // Extracted form submission for reusability
+      function submitForm(imageUrl) {
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
+          email,
+          password,
+          firstName,
+          lastName,
+          whatsApp,
+          phone,
+          image: imageUrl, // Can be "" if image not uploaded
+        }).then((res) => {
+          console.log(res.data);
+          localStorage.setItem("userEmail", email);
+          window.location.href = "/verify-email";
+        }).catch((error) => {
+          console.log("Registration error:", error);
         });
       }
-    }
-  }
 
   return (
       
