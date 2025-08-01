@@ -27,7 +27,7 @@ export default function CreateFeedback() {
       }
 
       await axios.post(
-        "http://localhost:5000/api/feedback",
+        import.meta.env.VITE_BACKEND_URL + "/api/feedback",
         { title, stars, description },
         {
           headers: {

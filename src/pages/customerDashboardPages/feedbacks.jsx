@@ -10,7 +10,7 @@ export default function Feedbacks() {
     const fetchFeedbacks = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/feedback/my-feedbacks", {
+        const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/feedback/my-feedbacks", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

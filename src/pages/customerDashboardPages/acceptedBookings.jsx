@@ -11,7 +11,7 @@ export default function AcceptedBookings() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/bookings/customer-bookings?status=accepted", {
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/bookings/customer-bookings?status=accepted", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -11,7 +11,7 @@ export default function BookingRequests() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/bookings/customer-bookings?status=pending", {
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/bookings/customer-bookings?status=pending", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

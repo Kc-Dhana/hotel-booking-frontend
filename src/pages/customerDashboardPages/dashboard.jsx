@@ -23,7 +23,7 @@ export default function Dashboard() {
         const results = await Promise.all(
           statuses.map((status) =>
             axios.get(
-              `http://localhost:5000/api/bookings/customer-bookings?status=${status}`,
+              import.meta.env.VITE_BACKEND_URL + `/api/bookings/customer-bookings?status=${status}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
